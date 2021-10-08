@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-bwtqag)$((11*z#9svn&6drhlmmc0-c3w9%)qe4@(dzg-l92*$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com','https://allegro-cb.herokuapp.com/']
 
 
 # Application definition
