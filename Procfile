@@ -1,0 +1,1 @@
+web: gunicorn db_assistent_server.wsgi --capture-output --enable-stdio-inheritance --log-file -

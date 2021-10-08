@@ -1,0 +1,13 @@
+datetime
+python-dateutil
+regex
+spacy
+pandasql
+fuzzywuzzy
+django
+djangorestframework
+requests
+django-cors-headers
+pandas
+numpy
+gunicorn
