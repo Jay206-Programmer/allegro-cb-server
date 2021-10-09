@@ -8,16 +8,22 @@ from .common import CommonClass
 ep = Entity_Parser()
 cm_obj = CommonClass()
 
-df = pd.read_csv(r'db_query\utils\APR-19_2019_1_17SEP21.txt',sep='~')
+df = pd.read_csv(r'db_query\utils\Combined_Allegro_Data.csv')
+
+cols = ['BUSINESS_UNIT', 'PRODUCT_SEGMENT', 'CUSTOMER_NAME']
+unique_list = [list(df[cols[i]].unique()) for i in range(len(cols))]
 
 def get_answer(sent):
     
-    entity = ep.extract_data(sent)
+    # sent = re.sub("?","",sent)
+    # sent = re.sub("...","",sent)
+    sent = sent.lower()
     
-    cols = ['SCHEDULE_SHIP_DATE', 'BUSINESS_UNIT', 'PRODUCT_SEGMENT', 'CUSTOMER_NAME']
+    entity = ep.extract_data(sent)
+    print(entity)
     for i in range(len(cols)):
-        if cols[i] in entity and cols[i] != 'SCHEDULE_SHIP_DATE':
-            if not entity[cols[i]].upper() in list(df[cols[i]].unique()):
+        if cols[i] in entity:
+            if not entity[cols[i]].upper() in unique_list[i]:
                 del entity[cols[i]]    
     print(entity)
 

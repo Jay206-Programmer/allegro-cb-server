@@ -3,13 +3,32 @@ from .post_process_dates import PostProcessDatesClass
 import spacy
 import re
 from pandasql import sqldf
+import zipfile
+from urllib.request import urlopen
+import os
 
 date_obj = PostProcessDatesClass()
 
-date_nlp = spacy.load(r'db_query\utils\Models\date_model')
-bu_nlp = spacy.load(r'db_query\utils\Models\(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
-product_nlp = spacy.load(r'db_query\utils\Models\product')
-customer_nlp = spacy.load(r'db_query\utils\Models\customer')
+if not os.path.exists("product"):
+    #? Reading file from s3 server
+    print("Downloading models")
+    with urlopen("https://feasta-image-bucket.s3.us-east-2.amazonaws.com/Models/Models.zip") as conn:
+        with open("./temp.zip","wb") as wo:
+            wo.write(conn.read())
+
+    #? Unzipping the
+    print("unzipping models")
+    with zipfile.ZipFile('temp.zip') as myzip:
+        myzip.extractall()
+    
+    print("deleting zip file")
+    os.remove("temp.zip")
+
+#? Loading models
+date_nlp = spacy.load('date_model')
+bu_nlp = spacy.load('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
+product_nlp = spacy.load('product')
+customer_nlp = spacy.load('customer')
         
 class Entity_Parser:
     

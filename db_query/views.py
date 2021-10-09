@@ -27,5 +27,5 @@ class ParseQuery(APIView):
             return Response({"status_code":200,"response_msg":"Successful Retrival","message":result})
                 
         except Exception as e:
-            print(str(e))
+            print("Exception: "+str(e))
             return Response({"status_code":500,"response_msg":"Something went wrong, please try again!"})
