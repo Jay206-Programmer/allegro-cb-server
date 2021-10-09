@@ -8,7 +8,7 @@ from .common import CommonClass
 ep = Entity_Parser()
 cm_obj = CommonClass()
 
-df = pd.read_csv(r'db_query\utils\Combined_Allegro_Data.csv')
+df = pd.read_csv('Combined_Allegro_Data.csv')
 
 cols = ['BUSINESS_UNIT', 'PRODUCT_SEGMENT', 'CUSTOMER_NAME']
 unique_list = [list(df[cols[i]].unique()) for i in range(len(cols))]
