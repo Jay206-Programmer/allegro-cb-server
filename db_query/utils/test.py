@@ -1,14 +1,26 @@
 from .run_models import Entity_Parser
-import spacy
 import pandas as pd
 from pandasql import sqldf
 import re
 from .common import CommonClass
+import os
+from urllib.request import urlopen
+import gc
 
 ep = Entity_Parser()
 cm_obj = CommonClass()
 
+if not os.path.exists("Combined_Allegro_Data.csv"):
+    #? Reading file from s3 server
+    print("Downloading CSV")
+    with urlopen("https://feasta-image-bucket.s3.us-east-2.amazonaws.com/Models/Combined_Allegro_Data.csv") as conn:
+        with open("Combined_Allegro_Data.csv","w") as wo:
+            wo.write(conn.read())
+        del conn
+
 df = pd.read_csv('Combined_Allegro_Data.csv')
+os.remove('Combined_Allegro_Data.csv')
+gc.collect()
 
 cols = ['BUSINESS_UNIT', 'PRODUCT_SEGMENT', 'CUSTOMER_NAME']
 unique_list = [list(df[cols[i]].unique()) for i in range(len(cols))]

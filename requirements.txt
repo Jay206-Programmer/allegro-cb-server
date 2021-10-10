@@ -1,6 +1,6 @@
 datetime
-python-dateutil
-regex
+# python-dateutil
+# regex
 spacy
 pandasql
 fuzzywuzzy

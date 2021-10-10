@@ -6,6 +6,8 @@ import re
 import zipfile
 from urllib.request import urlopen
 import os
+import shutil
+import gc
 
 date_obj = PostProcessDatesClass()
 
@@ -15,20 +17,31 @@ if not os.path.exists("product"):
     with urlopen("https://feasta-image-bucket.s3.us-east-2.amazonaws.com/Models/Models.zip") as conn:
         with open("./temp.zip","wb") as wo:
             wo.write(conn.read())
+        del conn
 
     #? Unzipping the
     print("unzipping models")
     with zipfile.ZipFile('temp.zip') as myzip:
         myzip.extractall()
+        del myzip
     
     print("deleting zip file")
     os.remove("temp.zip")
 
+gc.collect() #? Garbage collection
+
+def remove_folder(path):
+    shutil.rmtree(path=path)
+
 #? Loading models
 date_nlp = spacy.load('date_model')
+remove_folder('date_model')
 bu_nlp = spacy.load('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
+remove_folder('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
 product_nlp = spacy.load('product')
+remove_folder('product')
 customer_nlp = spacy.load('customer')
+remove_folder('customer')
         
 class Entity_Parser:
     
