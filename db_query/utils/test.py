@@ -14,7 +14,7 @@ if not os.path.exists("Combined_Allegro_Data.csv"):
     #? Reading file from s3 server
     print("Downloading CSV")
     with urlopen("https://feasta-image-bucket.s3.us-east-2.amazonaws.com/Models/Combined_Allegro_Data.csv") as conn:
-        with open("Combined_Allegro_Data.csv","w") as wo:
+        with open("Combined_Allegro_Data.csv","wb") as wo:
             wo.write(conn.read())
         del conn
 

@@ -5,3 +5,4 @@ date_model
 customer
 (bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38
 # Models
+__pycache__
