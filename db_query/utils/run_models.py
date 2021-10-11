@@ -2,6 +2,7 @@
 from .post_process_dates import PostProcessDatesClass
 import spacy
 import re
+from datetime import datetime,timedelta
 # from pandasql import sqldf
 import zipfile
 from urllib.request import urlopen
@@ -34,14 +35,15 @@ def remove_folder(path):
     shutil.rmtree(path=path)
 
 #? Loading models
-date_nlp = spacy.load('date_model')
-remove_folder('date_model')
+# date_nlp = spacy.load('date_model')
+date_nlp = spacy.load('New Dates_100-epochs_2021_10_11_15_40_45')
+# remove_folder('date_model')
 bu_nlp = spacy.load('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
-remove_folder('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
+# remove_folder('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
 product_nlp = spacy.load('product')
-remove_folder('product')
+# remove_folder('product')
 customer_nlp = spacy.load('customer')
-remove_folder('customer')
+# remove_folder('customer')
         
 class Entity_Parser:
     
@@ -111,12 +113,14 @@ class Entity_Parser:
     def generate_sql(self,dic):
         lst = [(k,v) for k,v in dic.items()]
         sql = '''select SUM(EXTN_AMOUNT_USD) from df where '''
-        for i in lst:
-            if isinstance(i[1],list):
-                sql += i[0] + " between '" + i[1][0] + "' and '" + i[1][1] + "' and "
+        # print(lst)
+        
+        for i in range(len(lst)):
+            if isinstance(lst[i][1],list):
+                sql += lst[i][0] + " BETWEEN '" + lst[i][1][0] + "' AND '" + str((datetime.strptime(lst[i][1][1],'%Y-%m-%d') + timedelta(days=1)).strftime('%Y-%m-%d')) + "' AND "
             else:
-                sql += i[0] + " = '" + str(i[1]).upper() + "' and "
+                sql += lst[i][0] + " = '" + str(lst[i][1]).upper() + "' AND "
 
-        sql = re.sub(' and $', '', sql)
+        sql = re.sub(' AND $', '', sql)
         
         return sql
