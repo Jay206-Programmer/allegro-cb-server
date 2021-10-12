@@ -2,7 +2,7 @@ datetime
 # python-dateutil
 # regex
 spacy
-pandasql
+# pandasql
 fuzzywuzzy
 django
 djangorestframework

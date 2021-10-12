@@ -15,7 +15,7 @@ date_obj = PostProcessDatesClass()
 if not os.path.exists("product"):
     #? Reading file from s3 server
     print("Downloading models")
-    with urlopen("https://feasta-image-bucket.s3.us-east-2.amazonaws.com/Models/Models.zip") as conn:
+    with urlopen("https://feasta-image-bucket.s3.us-east-2.amazonaws.com/Models/db_assistent_server.zip") as conn:
         with open("./temp.zip","wb") as wo:
             wo.write(conn.read())
         del conn
@@ -37,13 +37,13 @@ def remove_folder(path):
 #? Loading models
 # date_nlp = spacy.load('date_model')
 date_nlp = spacy.load('New Dates_100-epochs_2021_10_11_15_40_45')
-# remove_folder('date_model')
+remove_folder('New Dates_100-epochs_2021_10_11_15_40_45')
 bu_nlp = spacy.load('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
-# remove_folder('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
+remove_folder('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
 product_nlp = spacy.load('product')
-# remove_folder('product')
+remove_folder('product')
 customer_nlp = spacy.load('customer')
-# remove_folder('customer')
+remove_folder('customer')
         
 class Entity_Parser:
     
@@ -80,7 +80,7 @@ class Entity_Parser:
         if len(date)!=0:
             processed_date = date_obj.post_process(date[0])
             print(processed_date)
-            entities['SCHEDULE_SHIP_DATE'] = processed_date
+            entities['ACTUAL_SHIP_DATE'] = processed_date
         
         # for business unit
         bu_doc = bu_nlp(sent)

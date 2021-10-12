@@ -279,10 +279,10 @@ class PostProcessDatesClass:
         month_dict = {'01':'JAN','02':'FEB','03':'MAR','04':'APR','05':'MAY','06':'JUN','07':'JUL','08':'AUG','09':'SEP',
                   '10':'OCT','11':'NOV','12':'DEC'}
         lst = []
-        print('convert date'+str(date))
+        # print('convert date'+str(date))
         for i in range(len(date)):
             d = date[i].split('-')
-            print('in convert date: '+str(d[1]))
+            # print('in convert date: '+str(d[1]))
             d[1] = d[1].replace(d[1],month_dict[d[1]])
             d = '-'.join(d)
             lst.append(d)
@@ -290,21 +290,21 @@ class PostProcessDatesClass:
     
     def date_like_month_year_or_day_month(self,date):
         lst = date.split()
-        print('day month '+str(lst))
+        # print('day month '+str(lst))
         if lst[0].isdigit() or len(lst[1])<=2:
             date = parser.parse(date)
             first_day = date.replace(day=date.day,month=date.month).strftime('%Y-%m-%d')
             last_day = date.replace(day=date.day,month=date.month).strftime('%Y-%m-%d')
-            print(first_day)
+            # print(first_day)
 
         else:
             if len(lst[1]) > 2:
                 date = parser.parse(date)
-                print(date.year)
+                # print(date.year)
                 first_day = date.replace(day=1,month=date.month,year=int(lst[1])).strftime('%Y-%m-%d')
                 last_day = date.replace(day = calendar.monthrange(date.year, date.month)[1],month=date.month,year=date.year).strftime('%Y-%m-%d')
-                print(first_day)
-                print(last_day)
+                # print(first_day)
+                # print(last_day)
         
         dates = []
         dates.append(first_day)
@@ -338,10 +338,10 @@ class PostProcessDatesClass:
             
         if date not in ['last week','current month','last month','this week','this year','this month','previous month','last year','previous year']:
             date = self.text2int(date).strip()
-            print('if'+str(date))
+            # print('if'+str(date))
         elif date in ['last week','current month','last month','this week','this year','this month','previous month','last year','previous year'] or len(date.split) == 2: 
             date = date.strip()
-            print('elif'+str(date))
+            # print('elif'+str(date))
             
         months = ['january','jan','february','feb','march','mar','april','may','june','jun','july','jul','august','aug','september','sept','sep','october','oct','november','nov','december','dec']
 
@@ -367,13 +367,13 @@ class PostProcessDatesClass:
             final_date.append(date_start)
             final_date.append(date_end)
         elif date in months:
-            print('only month')
+            # print('only month')
             final_date = self.only_month(date)
         elif date.isdigit():
-            print('only year')
+            # print('only year')
             final_date = self.only_year(date)
         elif 'quarter' in date:
-            print('quarter')
+            # print('quarter')
             final_date = self.quarter(date)
         elif 'last week' in date:
             final_date = self.last_week()
@@ -389,17 +389,17 @@ class PostProcessDatesClass:
             final_date = self.this_year()
         elif len(date.split())==2:
             final_date = self.date_like_month_year_or_day_month(date)
-            print('5 july '+str(final_date))
+            # print('5 july '+str(final_date))
         else:
             final_date = []
-            print('else:'+str(date))
+            # print('else:'+str(date))
             final_date_start = parser.parse(date).strftime('%Y-%m-%d')
             final_date_end = parser.parse(date).strftime('%Y-%m-%d')
             final_date.append(final_date_start)
             final_date.append(final_date_end)
-            print(final_date)
+            # print(final_date)
         
-        print(final_date)
+        # print(final_date)
         # final_date = self.convert_date(final_date)
-        print(final_date)
+        # print(final_date)
         return final_date
