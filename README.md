@@ -1,5 +1,9 @@
-# Steps to run the Server
+# Chatbot backend  Server
 
+### Prerequisits
+python 3.9+
+
+### Steps to run server
 1. clone the project  
 2. open command prompt in the project's directory and write this commands
 ```bash
