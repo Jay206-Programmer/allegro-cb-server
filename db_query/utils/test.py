@@ -51,9 +51,9 @@ def get_answer(sent):
                 # del entity[cols[i]]
                 continue 
             elif entity[cols[i]].isnumeric():
-                continue
+                del entity[cols[i]]
             elif entity[cols[i]] in exception_words:
-                continue
+                del entity[cols[i]]
             else:
                 lst.append(entity[cols[i]])
                 del entity[cols[i]]

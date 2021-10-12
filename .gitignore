@@ -8,3 +8,4 @@ New Dates_100-epochs_2021_10_11_15_40_45
 # Models
 __pycache__
 Combined_Allegro_Data.csv
+*.pyc
