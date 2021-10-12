@@ -2,7 +2,7 @@
 
 1. clone the project  
 2. open command prompt in the project's directory and write this commands
-```python
+```bash
 python -m venv .env
 cd .env
 cd Scripts
