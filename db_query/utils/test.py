@@ -22,11 +22,12 @@ if not os.path.exists("Combined_Allegro_Data.csv"):
 df = pd.read_csv('Combined_Allegro_Data.csv')
 df['ACTUAL_SHIP_DATE'] = pd.to_datetime(df['ACTUAL_SHIP_DATE'])
 
-os.remove('Combined_Allegro_Data.csv')
+# os.remove('Combined_Allegro_Data.csv')
 gc.collect()
 
 cols = ['BUSINESS_UNIT', 'PRODUCT_SEGMENT', 'CUSTOMER_NAME']
 unique_list = [list(df[cols[i]].unique()) for i in range(len(cols))]
+exception_words = ['tyco for 2018','tyco for 2019']
 
 def get_answer(sent):
     
@@ -49,6 +50,10 @@ def get_answer(sent):
             if entity[cols[i]].upper() in unique_list[i]:
                 # del entity[cols[i]]
                 continue 
+            elif entity[cols[i]].isnumeric():
+                continue
+            elif entity[cols[i]] in exception_words:
+                continue
             else:
                 lst.append(entity[cols[i]])
                 del entity[cols[i]]

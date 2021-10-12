@@ -37,13 +37,13 @@ def remove_folder(path):
 #? Loading models
 # date_nlp = spacy.load('date_model')
 date_nlp = spacy.load('New Dates_100-epochs_2021_10_11_15_40_45')
-remove_folder('New Dates_100-epochs_2021_10_11_15_40_45')
+# remove_folder('New Dates_100-epochs_2021_10_11_15_40_45')
 bu_nlp = spacy.load('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
-remove_folder('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
+# remove_folder('(bu v2) Extended BU as Product Retrain_50-epochs_2021_10_07_15_21_38')
 product_nlp = spacy.load('product')
-remove_folder('product')
+# remove_folder('product')
 customer_nlp = spacy.load('customer')
-remove_folder('customer')
+# remove_folder('customer')
         
 class Entity_Parser:
     
